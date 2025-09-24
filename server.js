@@ -10,7 +10,7 @@ app.use(bodyParser.json()); // stores data in req.body
 const PORT = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('Welcome to our Hotel');
 });
 
 // Import the router files
