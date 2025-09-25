@@ -42,7 +42,9 @@ passport.use(new LocalStrategy(async (USERNAME, password, done) => {
 
 app.use(passport.initialize());
 
-app.get('/', passport.authenticate('local', { session: false }), (req, res) => {
+const localAuthmiddleware = passport.authenticate('local', {session: false});
+
+app.get('/', localAuthmiddleware, function (req, res) {
   res.send('Welcome to our Hotel');
 });
 
