@@ -4,7 +4,7 @@ const db = require('./db'); // Import the database connection
 require('dotenv').config();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-
+const Person = require('./models/person');
 
 const bodyParser = require('body-parser');
 
