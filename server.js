@@ -2,12 +2,22 @@ const express = require('express');
 const app = express();
 const db = require('./db'); // Import the database connection
 require('dotenv').config();
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 const bodyParser = require('body-parser');
 
 // Middleware to parse JSON requests
 app.use(bodyParser.json()); // stores data in req.body
 const PORT = process.env.PORT || 3000;
+
+// Middleware Function
+const logRequest = (req, res, next) => {
+  console.log(`[${new Date().toLocaleString()}] Request made to : ${req.originalUrl}`);
+  next();
+}
+
+app.use(logRequest);
 
 app.get('/', (req, res) => {
   res.send('Welcome to our Hotel');
