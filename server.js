@@ -23,7 +23,7 @@ app.use(logRequest);
 passport.use(new LocalStrategy(async (USERNAME, password, done) => {
     // Authentication logic here
     try {
-      console.log("Received credentials", username, password);
+      console.log("Received credentials", USERNAME, password);
       const user = await Person.findOne({username: USERNAME});
       if(!user) {
         return done(null, false, {message: 'Incorrect username'});
