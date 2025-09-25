@@ -20,7 +20,7 @@ app.use(logRequest);
 app.use(passport.initialize());
 const localAuthmiddleware = passport.authenticate('local', {session: false});
 
-app.get('/', localAuthmiddleware, function (req, res) {
+app.get('/', function (req, res) {
   res.send('Welcome to our Hotel');
 });
 
@@ -29,7 +29,7 @@ const personRoutes = require('./routes/personRoutes');
 const menuItemRoutes = require('./routes/menuItemRoutes');
 
 // Use the routers
-app.use('/person', personRoutes);
+app.use('/person', localAuthmiddleware, personRoutes);
 app.use('/menu', menuItemRoutes);
 
 app.listen(3000, () => {
