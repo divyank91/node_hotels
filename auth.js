@@ -12,7 +12,7 @@ passport.use(new LocalStrategy(async (USERNAME, password, done) => {
         return done(null, false, {message: 'Incorrect username'});
       }
 
-      const isPasswordValid = user.comparePassword(password);
+      const isPasswordValid = await user.comparePassword(password);
       if(isPasswordValid) {
         return done(null, user);
       } else {
