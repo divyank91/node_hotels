@@ -5,6 +5,7 @@ require('dotenv').config();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
+
 const bodyParser = require('body-parser');
 
 // Middleware to parse JSON requests
@@ -19,7 +20,29 @@ const logRequest = (req, res, next) => {
 
 app.use(logRequest);
 
-app.get('/', (req, res) => {
+passport.use(new LocalStrategy(async (USERNAME, password, done) => {
+    // Authentication logic here
+    try {
+      console.log("Received credentials", username, password);
+      const user = await Person.findOne({username: USERNAME});
+      if(!user) {
+        return done(null, false, {message: 'Incorrect username'});
+      }
+
+      const isPasswordValid = user.password === password ? true : false;
+      if(isPasswordValid) {
+        return done(null, user);
+      } else {
+        return done(null, false, {message: 'Incorrect password'});
+      }
+    } catch (error) {
+      return done(error);
+    }
+}))
+
+app.use(passport.initialize());
+
+app.get('/', passport.authenticate('local', { session: false }), (req, res) => {
   res.send('Welcome to our Hotel');
 });
 
