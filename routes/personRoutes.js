@@ -64,6 +64,19 @@ router.post('/login', async(req, res) => {
   }
 })
 
+// Profile route
+router.get('/profile', jwtAuthMiddleware, async (req, res) => {
+  try {
+      const userData = req.user; // Extract user data from the request object
+      console.log("User data from token:", userData);
+      const userId = userData.id;
+      const user = await Person.findById(userId);
+      res.status(200).json(user);
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({error: "Internal Server Error"});
+  }
+});
 
 // Get method to get the person
 router.get('/', jwtAuthMiddleware,async (req, res) => {
