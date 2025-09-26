@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Person = require('./../models/person'); // Import the Person model
-const {jwtAuthMiddleware, generteToken} = require('./../jwt');
+const {jwtAuthMiddleware, generateToken} = require('./../jwt');
 
 // POST route to add a person
 router.post('/signup', async (req, res) => {
@@ -34,7 +34,7 @@ router.post('/signup', async (req, res) => {
 });
 
 // Login Route
-router.post('/logon', async(req, res) => {
+router.post('/login', async(req, res) => {
   try {
       // Extract the username and password
       const {username, password} = req.body;
