@@ -48,7 +48,7 @@ router.post('/login', async(req, res) => {
       }
 
       // Generate token
-      const paylaod = {
+      const payload = {
         id: user.id,
         username: user.username
       }
